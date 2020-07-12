@@ -1,10 +1,8 @@
-import Services from './Services';
-const services = new Services();
+
 
 class UI{
 
-    async renderSentence(){
-        const sentense = await services.getSentence();
+    async renderSentence(sentense){
         console.log(sentense);
         const sentenseDiv = document.getElementById('sentences-div');
         const div = document.createElement('div');
