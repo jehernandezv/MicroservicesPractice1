@@ -1,8 +1,14 @@
 var express = require('express');
 var cors = require('cors');
+const morgan = require('morgan');
+const axios = require('axios');
+
 var app = express();
 var port = process.argv[2];
 app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 
 var sentences = ["“Nunca había pasado antes.”", "“Pues ayer funcionaba…”",
@@ -18,9 +24,19 @@ var sentences = ["“Nunca había pasado antes.”", "“Pues ayer funcionaba…
   "“¡Alguien debe de haber cambiado mi código!”"];
 
 app.get('/', function (req, res) {
-  res.json({
-   message: sentences[Math.floor(Math.random() * (sentences.length - 1)) + 1]
-  });
+
+  axios.get('http://192.168.100.7:5000/api/ubuntu1/1/'+sentences.length)
+  .then(function (response){
+    res.json({
+      message: sentences[response.data.message]
+     });
+  })
+  .catch(function (error){
+    console.log(error);
+    res.json({
+      message: error
+     });
+  })
 });
 
 app.post('/', function (req, res) {
