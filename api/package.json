@@ -2,10 +2,10 @@
   "name": "microservicespractice1",
   "version": "1.0.0",
   "description": "Practica distribuidos UPTC",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.ts"
   },
   "repository": {
     "type": "git",
