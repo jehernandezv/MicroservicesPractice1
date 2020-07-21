@@ -1,7 +1,11 @@
-import express, {Application} from 'express';
+import express, {Application, response} from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import axios from 'axios';
+import './database';
+import Log from './models/Log';
+
+
 
 class Server {
     public app : Application;
@@ -40,9 +44,9 @@ class Server {
         ];
 
 
-        this.app.get('/', function (req, res) {
-            axios.get('http://IPSERVER:5000/api/ubuntu1/1/' + sentences.length).then(function (response) {
-                res.json({
+        this.app.get('/', async function (req, res) {
+            axios.get('http://localhost:6000/api/ubuntu1/1/' + sentences.length).then(async function (response) {
+                await res.json({
                     message: sentences[response.data.message]
                 });
             }).catch(function (error) {
@@ -51,8 +55,26 @@ class Server {
             })
         });
 
-        this.app.post('/', function (req, res) {
-            res.json({message: 'Got a POST request'});
+        this.app.post('/saveLog', async function (req, res) {
+            console.log(req.body.url);
+            const log = new Log({
+                method:req.body.method,
+                url:req.body.url,
+                httpVersion:req.body.httpVersion,
+                statusCode:req.body.statusCode,
+                statusMessage:req.body.statusMessage,
+                nameHost:req.body.nameHost,
+                systemHost:req.body.systemHost,
+                dateHost:req.body.dateHost,
+                outputServerHost:req.body.outputServerHost,
+                hostOS:req.body.hostOS,
+                hostType:req.body.hostType,
+                hostArch:req.body.hostArch
+            });
+            await log.save();
+            await res.json({
+                message:'Ha sido guardado su log'
+            });
         });
 
         this.app.put('/user', function (req, res) {

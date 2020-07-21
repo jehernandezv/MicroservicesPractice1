@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/jehernandezv/MicroservicesPractice1#readme",
   "dependencies": {
+    "@types/mongoose": "^5.7.32",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose": "^5.9.25",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
