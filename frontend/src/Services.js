@@ -4,8 +4,8 @@ class Services {
         this.URL = 'http://localhost:3000/'
     }
 
-    async getSentence() {
-        const response = await fetch(this.URL);
+    async getSentence(min,max) {
+        const response = await fetch(this.URL+min+'/'+max);
         const sentense = await response.json();
         return sentense;
     }

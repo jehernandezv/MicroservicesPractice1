@@ -4,12 +4,17 @@ const ui = new UI();
 import Services from './Services';
 const services = new Services();
 
-document.addEventListener('DOMContentLoaded',async () => {
-   await ui.renderSentence(await services.getSentence());
-});
-
-document.getElementById('btn-sentence').addEventListener('click',async () => {
+document.getElementById('btn-sentence').addEventListener('click',async (event) => {
+    event.preventDefault();
+    const min = await document.getElementById('min').value;
+    const max = await document.getElementById('max').value;
+    const sentence = await services.getSentence(min,max);
+    if(sentence.statusCode == 200){
     document.getElementById('sentences-div').innerHTML = '';
-    ui.renderSentence(await services.getSentence());
+    await ui.renderSentence(sentence);
+    }else{
+        await ui.renderTable(sentence);
+    }
+    
 });
 

@@ -1,11 +1,10 @@
 import express, {Application, response} from 'express';
 import cors from 'cors';
+require('dotenv').config();
 import morgan from 'morgan';
 import axios from 'axios';
-import './database';
+//import './database';
 import Log from './models/Log';
-
-
 
 class Server {
     public app : Application;
@@ -13,11 +12,10 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = process.argv[2];
+        this.port = process.argv[2] || process.env.PORT_HOST +'';
         this.config();
         this.routes();
     }
-
     config(): void {
 
         this.app.use(cors());
@@ -27,64 +25,50 @@ class Server {
     }
 
     routes(): void {
-        const sentences = [
-            "“Nunca había pasado antes.”",
-            "“Pues ayer funcionaba…”",
-            "“¿Cómo es posible?”",
-            "“Tiene que ser un problema de tu hardware.”",
-            "“¿Qué hiciste mal para lograr que fallara?”",
-            "“Algo debe de estar mal en tus datos.”",
-            "“¡Si no he tocado ese módulo en meses!”",
-            "“Debes de estar usando una versión anterior.”",
-            "“Es sólo una desafortunada coincidencia.”",
-            "“¡Es que no lo puedo probar todo!”",
-            "“ESTO, no puede ser la causa de ESO.”",
-            "“Funciona, pero no lo he probado.”",
-            "“¡Alguien debe de haber cambiado mi código!”"
-        ];
-
-
-        this.app.get('/', async function (req, res) {
-            axios.get('http://localhost:6000/api/ubuntu1/1/' + sentences.length).then(async function (response) {
+        
+        this.app.get('/:min/:max', async function (req, res) {
+            const { min, max } = req.params;
+            axios.get('http://'+process.env.LOCAL_HOST+
+            ':'+process.env.PORT_SERVER_UBUNTU+'/api/ubuntu1/'+min+'/'+max)
+            .then(async function (response) {
+                if(response.data.statusCode == '200'){
                 await res.json({
-                    message: sentences[response.data.message]
+                    message: response.data.message,
+                    statusCode: 200
                 });
-            }).catch(function (error) {
+            }else{
+                await res.json(response.data);
+            }
+                const log = new Log({
+                    method: response.data.method,
+                    url: response.data.url,
+                    httpVersion: response.data.httpVersion,
+                    statusCode: response.data.statusCode,
+                    statusMessage: response.data.statusMessage,
+                    nameHost: response.data.nameHost,
+                    systemHost: response.data.systemHost,
+                    dateHost: response.data.dateHost,
+                    timeProcessService:response.data.timeProcessService,
+                    message: response.data.message,
+                    hostOS: response.data.hostOS,
+                    hostType: response.data.hostType,
+                    hostArch: response.data.hostArch
+                });
+                // guardamos en MongoDB
+                 //await log.save();
+                console.log('Ha sido guardado su log');
+
+            }).catch((error) => {
                 console.log(error);
-                res.json({message: error});
+                res.json(error.message);
             })
         });
 
-        this.app.post('/saveLog', async function (req, res) {
-            console.log(req.body.url);
-            const log = new Log({
-                method:req.body.method,
-                url:req.body.url,
-                httpVersion:req.body.httpVersion,
-                statusCode:req.body.statusCode,
-                statusMessage:req.body.statusMessage,
-                nameHost:req.body.nameHost,
-                systemHost:req.body.systemHost,
-                dateHost:req.body.dateHost,
-                outputServerHost:req.body.outputServerHost,
-                hostOS:req.body.hostOS,
-                hostType:req.body.hostType,
-                hostArch:req.body.hostArch
-            });
-            await log.save();
-            await res.json({
-                message:'Ha sido guardado su log'
-            });
-        });
-
-        this.app.put('/user', function (req, res) {
-            res.json({message: 'Got a PUT request at /user'});
-        });
     }
-
+    
     start(): void {
-        console.log('port: ' + this.port)
-        this.app.listen(this.port, function () {
+        console.log('host port ' + this.port || process.env.PORT_HOST);
+        this.app.listen(this.port || process.env.PORT_HOST, function () {
             console.log('app listening!');
         });
     }
