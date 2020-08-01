@@ -2,9 +2,8 @@ import express, {Application, response} from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import axios from 'axios';
-import './database';
+//import './database';
 import Log from './models/Log';
-
 
 
 class Server {
