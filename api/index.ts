@@ -27,6 +27,7 @@ class Server {
 
     routes(turn:Number): void {
         this.app.get('/:min/:max', async function (req, res) {
+<<<<<<< HEAD
             const {min, max} = req.params;
             axios.get('http://'+ (turn == 0)?`${process.env.SERVER_UBUNTU1}`:`${process.env.SERVER_UBUNTU2}`+ ':' + process.env.PORT_SERVER_UBUNTU2 + '/api/ubuntu1/' + min + '/' + max).then(async function (response) {    
             if (response.data.statusCode == '200') {
@@ -35,6 +36,20 @@ class Server {
                     await res.json(response.data);
                 }
                 turn == 0 ? turn = 1:turn = 0;
+=======
+            const { min, max } = req.params;
+            axios.get('http://'+process.env.SERVER_UBUNTU1+
+            ':'+process.env.PORT_SERVER_UBUNTU+'/api/ubuntu1/'+min+'/'+max)
+            .then(async function (response) {
+                if(response.data.statusCode == '200'){
+                await res.json({
+                    message: response.data.message,
+                    statusCode: 200
+                });
+            }else{
+                await res.json(response.data);
+            }
+>>>>>>> a86c3e5fbb84e3a35d585ef7892d590f87684c64
                 const log = new Log({
                     method: response.data.method,
                     url: response.data.url,
