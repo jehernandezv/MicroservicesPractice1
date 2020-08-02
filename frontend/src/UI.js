@@ -33,7 +33,7 @@ class UI {
         ];
         var datatable = $('.exceptionTable').DataTable({
             retrieve: true,
-            data: dataSet,
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
             columns: [
                 { title: "Status code", data: "statusCode" },
                 { title: "URL", data: "url" },
@@ -44,7 +44,6 @@ class UI {
                 { title: "Message", data: "message" }
             ]
         });
-//        datatable.clear();
         datatable.rows.add(dataSet);
         datatable.draw();
         console.log(dataSet);
