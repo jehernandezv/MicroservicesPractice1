@@ -1,59 +1,104 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Frontend</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    </head>
-    <body>
-        <nav class="navbar navbar-dark bg-dark text-center">
-            <a class="navbar-brand" href="#">
-                <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/18637978201551942629-512.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                Frases mas populares entre programadores
-            </a>
-        </nav>
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <form id="range-form" class="card card-body">
-                        <div class="form-group">
-                            <input type="number" id="min" required name="min" class="form-control" placeholder="Ingrese un valor minimo">
-                        </div>
 
-                        <div class="form-group">
-                          <input type="number" id="max" required name="max" class="form-control" placeholder="Ingrese un valor maximo">
-                       </div>
-                       <button id="btn-sentence">Generar una nueva</button>
-                    </form>
-                </div>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Programadores...</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark text-center">
+        <a class="navbar-brand">
+            <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/18637978201551942629-512.png"
+                width="30" height="30" class="ml-4 mr-2 d-inline-block align-top" alt="">
+            Frases mas populares entre programadores
+        </a>
+    </nav>
+    <div class="container-fluid pt-4 pr-4 pl-4">
+        <div class="row p-4">
+            <div class="col-md-4">
+                <form id="range-form" class="card card-body">
+                    <div class="form-group">
+                        <input type="number" id="min" required name="min" class="form-control"
+                            placeholder="Ingrese un valor minimo">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" id="max" required name="max" class="form-control"
+                            placeholder="Ingrese un valor maximo">
+                    </div>
+                    <button class="btn btn-primary" id="btn-sentence">¡Sorprendeme! ^^</button>
+                </form>
+            </div>
+            <div>
+                <blockquote class="blockquote">
+                    <p>¡Logging centralizado y pruebas de carga!</p>
+                    <footer class="blockquote-footer text-justify">En el menu lateral podras escoger entre dos valores,
+                        nuestro sistema te sorprendera con una de <br>
+                        de nuestras frases celebres que mas repiten los programadores en su dia a dia.
+                    </footer>
+                </blockquote>
+                <div class="container-fluid col-md-12" id="sentences-div"></div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-8" id="sentences-div"></div>
-        
 
-        <div class="card-body text-primary">
-            <h5 class="card-title">Monitoreo de excepciones del servicio</h5>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Cod Status</th>
-                        <th scope="col">Url</th>
-                        <th scope="col">HttpVersion</th>
-                        <th scope="col">NameHost</th>
-                        <th scope="col">DateHost</th>
-                        <th scope="col">Service Process Time</th>
-                        <th scope="col">Message</th>
-                    </tr>
-                </thead>
-                <tbody id="table"></tbody>
-            </table>
+    <div class="container-fluid">
+        <div class="row pr-4 pl-4">
+            <div class="card-body text-primary">
+                <h5 class="display-5 card-title">Monitoreo de excepciones del servicio</h5>
+                <table class="table table-striped table-bordered dt-responsive nowrap table-dark exceptionTable"
+                    style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cod Status</th>
+                            <th scope="col">Url</th>
+                            <th scope="col">HttpVersion</th>
+                            <th scope="col">NameHost</th>
+                            <th scope="col">DateHost</th>
+                            <th scope="col">Service Process Time</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="col">Cod Status</th>
+                            <th scope="col">Url</th>
+                            <th scope="col">HttpVersion</th>
+                            <th scope="col">NameHost</th>
+                            <th scope="col">DateHost</th>
+                            <th scope="col">Service Process Time</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $('.exceptionTable').DataTable();
+
+    </script>
+</body>
+
 </html>
