@@ -19,7 +19,8 @@ class UI {
        }*/
     async renderTable(log) {
         var time = new Date(log.dateHost).toLocaleString();
-        var datos = [
+
+        var dataSet = [
             {
                 statusCode: log.statusCode,
                 url: log.url,
@@ -30,8 +31,9 @@ class UI {
                 message: log.message
             }
         ];
-        $('.exceptionTable').DataTable({
-            data: datos,
+        var datatable = $('.exceptionTable').DataTable({
+            retrieve: true,
+            data: dataSet,
             columns: [
                 { title: "Status code", data: "statusCode" },
                 { title: "URL", data: "url" },
@@ -42,7 +44,10 @@ class UI {
                 { title: "Message", data: "message" }
             ]
         });
-        
+//        datatable.clear();
+        datatable.rows.add(dataSet);
+        datatable.draw();
+        console.log(dataSet);
     }
 }
 
