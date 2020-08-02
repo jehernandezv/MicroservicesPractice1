@@ -53,32 +53,12 @@
         <div class="row pr-4 pl-4">
             <div class="card-body text-primary">
                 <h5 class="display-5 card-title">Monitoreo de excepciones del servicio</h5>
-                <table class="table table-striped table-bordered dt-responsive nowrap table-dark exceptionTable"
+                <table class="table table-striped table-bordered table-dark exceptionTable"
                     style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Cod Status</th>
-                            <th scope="col">Url</th>
-                            <th scope="col">HttpVersion</th>
-                            <th scope="col">NameHost</th>
-                            <th scope="col">DateHost</th>
-                            <th scope="col">Service Process Time</th>
-                            <th scope="col">Message</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table">
+
+            <!--   <tbody id="table">
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th scope="col">Cod Status</th>
-                            <th scope="col">Url</th>
-                            <th scope="col">HttpVersion</th>
-                            <th scope="col">NameHost</th>
-                            <th scope="col">DateHost</th>
-                            <th scope="col">Service Process Time</th>
-                            <th scope="col">Message</th>
-                        </tr>
-                    </tfoot>
+-->
                 </table>
             </div>
         </div>
@@ -95,10 +75,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $('.exceptionTable').DataTable();
 
-    </script>
 </body>
 
 </html>
